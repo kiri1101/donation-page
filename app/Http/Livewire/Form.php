@@ -43,12 +43,12 @@ class Form extends Component
 
     private $validationRules = [
         1 => [
-            'amount' => 'required|integer',
+            'amount' => 'required|numeric|integer',
             'cardName' => 'required',
-            'cardNumber' => 'required|min:12',
-            'expirationYear' => 'required',
-            'expirationMonth' => 'required',
-            'cvc' => 'required|integer',
+            'cardNumber' => 'required',
+            'expirationYear' => 'required|in:2022,2023,2024,2025,2026,2027,2028,2029,2030,2031',
+            'expirationMonth' => 'required|in:01,02,03,04,05,06,07,08,09,10,11,12',
+            'cvc' => 'required|numeric|integer',
         ],
         2 => [
             'firstName'         => 'required',
@@ -139,7 +139,13 @@ class Form extends Component
 
     public function render()
     {
-        return view('livewire.form')->slot('form');
+        $data['desc'] = 'Welcome To My New Project';
+        $data['keyword'] = '';
+        $data['og_title'] = 'Crisis in Africa: Donate Now.';
+        $data['og_desc'] = 'Utarana helps people caught in the world&#039;s worst disasters to survive, recover and regain control over their future.';
+        $data['site_link'] = env('APP_URL');
+        $data['title'] = 'Crisis in Africa: Donate Now | Utarana';
+        return view('livewire.form')->layout('layouts.app',$data);
     }
 }
 
