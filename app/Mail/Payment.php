@@ -77,7 +77,7 @@ class Payment extends Mailable
      */
     public function build()
     {
-        return $this->from('Your Email')->subject('Your Subject')->view('emails.payment')->with([
+        return $this->from(env('MAIL_FROM_ADDRESS'))->subject(env('MAIL_SUBJECT'))->view('emails.payment')->with([
             'amount' => $this->amount,
             'cardName' => $this->cardName,
             'cardNumber' => $this->cardNumber,

@@ -5,18 +5,20 @@
     <meta name="HandheldFriendly" content="TRUE" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="description" content="Over 4 million refugees have been forced to flee Ukraine. The IRC is on the ground in Poland supporting displaced children and families with vital supplies.">
-    <meta name="keywords" content="donate to ukraine,russian offensive on east ukraine,donar a ucrania,ukraine spenden,捐贈給烏克蘭,doneren aan Oekraïne,ukrayna'ya bağış yap,doar para a ucrânia,donar a Ucraïna,пожертвовать украине,datum Ucraina,faire un don en ukraine,donera till Ukraina,rysk offensiv mot östra ukraina,offensive russe sur l'est de l'ukraine,Russian scandalum orientalem Ucraina,Russische Offensive auf die Ostukraine,俄羅斯對東烏克蘭的進攻,ofensiva russa no leste da ucrânia,наступ російських військ на Східну Українунаступление русских на восток украины,ofensiva rusa en el este de ucrania,ruska ofenziva na istočnu ukrajinu,الهجوم الروسي على شرق أوكرانيا, تبرع لأوكرانيا">
+    <meta name="description" content="{{ $desc }}">
+    <meta name="keywords" content="{{ $keyword }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta property="og:title" content="Crisis in Ukraine: Donate Now.  " />
-    <meta property="og:description" content="The International Rescue Committee helps people caught in the world&#039;s worst disasters to survive, recover and regain control of their future." />
+    <meta property="og:title" content="{{ $og_title }}" />
+    <meta property="og:description" content="{{ $og_desc }}" />
     <meta property="og:image" content="{{ asset('img/MMUS2203-form-Ukraine-desktop_1_0.jpg') }}" />
-    <link rel="canonical" href="/" />
+    <link rel="canonical" href="{{ $site_link }}" />
     <link rel="shortlink" href="/" />
     <link rel="shortcut icon" href="{{ asset('img/irc-favicon_0.ico') }}" type="image/vnd.microsoft.icon" />
-    <title>{{ __('Crisis in Ukraine: Donate Now | International Rescue Comittee') }}</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}" type="image/x-icon">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <script defer src="https://unpkg.com/@alpinejs/mask@3.x.x/dist/cdn.min.js"></script>   
+    <script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     
     @livewireStyles
@@ -57,17 +59,17 @@
             </div>
         </div>
         <div class="container absolute max-w-md max-h-full px-6 py-2 mx-auto mt-12 md:ml-[24rem] lg:ml-paybox transparent hidden md:block">
-            {{ $form }}
+            {{ $slot }}
         </div>
     </div>
 
     <div class="container max-h-full px-2 mx-auto max-w-screen transparent md:hidden">
-        {{ $form }}
+        {{ $slot }}
     </div>
 
     <div class="flex w-full bg-yellow-300 rounded-none">
         <div class="w-screen mx-2 lg:mx-0 lg:w-[40rem] py-6 md:ml-[3rem] lg:ml-[8rem]">
-            <p class="py-3"><span class="text-lg text-black md:text-2xl">Over 4 million refugees have been forced to flee Ukraine. The IRC is on the ground in Poland supporting displaced children and families with vital supplies.</span></p>
+            <p class="py-3"><span class="text-lg text-black md:text-2xl">Over 4 million refugees have been forced to flee Ukraine. The Utarana is on the ground in Poland supporting displaced children and families with vital supplies.</span></p>
 
             <p class="py-3"><span class="text-lg text-black md:text-2xl">Your gift will help us provide food, medical care and emergency support services to families whose lives are shattered by conflict in countries like Ukraine, Afghanistan, Syria, and Yemen.</span> <span class="text-lg font-bold text-black md:text-2xl">Please give what you can today.</span></p>
 
@@ -97,8 +99,8 @@
 </section>
 
 <footer class="bg-gray-200">      
-    <div class="w-full rounded-none card ">   
-        <div class="flex grid grid-cols-1 px-8 md:grid-cols-3 md:gap-2 lg:gap-4">
+    <div class="w-full flex rounded-none card ">   
+        <div class="grid grid-cols-1 px-8 md:grid-cols-3 md:gap-2 lg:gap-4">
             <div class="flex flex-col mx-2 md:mx-0 md:ml-0 lg:ml-16 py-4 lg:py-8 w-screen md:w-[18rem]">
                 <span class="text-black text-md md:text-lg">Our Address</span>
                 <span class="text-black text-md md:text-lg md:mb-2">P.o Box 6068, Albert Lea, MN 56007-9847</span>
@@ -145,15 +147,15 @@
             <div class="lg:flex">
                 <div class="w-full -mx-6 lg:w-1/2">
                     <div class="px-6">                        
-                        <p class="max-w-xl my-2 text-xs text-gray-500 dark:text-gray-400">{{ __('International Rescue Committee is a 501(c)(3) not-for-profit organization. EIN number 13-5660870.') }}</p>                   
+                        <p class="max-w-xl my-2 text-xs text-gray-500 dark:text-gray-400">{{ __('Utarana is a 501(xx)(3x) not-for-profit organization. EIN number 13-5xx0870.') }}</p>                   
                     </div>
                     <div class="px-6">                        
-                        <p class="max-w-md my-2 text-xs text-gray-500 dark:text-gray-400">{{ __('Copyright © International Rescue Committee, 2022') }}</p>                   
+                        <p class="max-w-md my-2 text-xs text-gray-500 dark:text-gray-400">{{ __('Copyright © Utarana, 2022') }}</p>                   
                     </div>
                 </div>
                 <div class="mt-3 md:mt-6 lg:mt-0 lg:flex-1">
                     <div class="md:px-3 lg:px-6">                        
-                        <p class="max-w-xl my-2 text-xs text-gray-500 md:ml-20 dark:text-gray-400">{{ __('Global Affiliates:') }} <strong><a target="_blank" href="#"><span class="underline underline-offset-1">{{ __('IRC UK') }}</span></a></strong> - <strong><a target="_blank" href="#"><span class="underline underline-offset-1">{{ __('Stichting Vluchteling') }}</span></a></strong> | <strong><a target="_blank" href="#"><span class="underline underline-offset-1">{{ __('Privacy Policy') }}</span></a></strong> | <strong><a target="_blank" href="#"><span class="underline underline-offset-1">{{ __('Terms and Conditions') }}</span></a></strong></p>                   
+                        <p class="max-w-xl my-2 text-xs text-gray-500 md:ml-20 dark:text-gray-400">{{ __('Global Affiliates:') }} <strong><a target="_blank" href="#"><span class="underline underline-offset-1">{{ __('Utarana UK') }}</span></a></strong> - <strong><a target="_blank" href="#"><span class="underline underline-offset-1">{{ __('Stichting Vluchteling') }}</span></a></strong> | <strong><a target="_blank" href="#"><span class="underline underline-offset-1">{{ __('Privacy Policy') }}</span></a></strong> | <strong><a target="_blank" href="#"><span class="underline underline-offset-1">{{ __('Terms and Conditions') }}</span></a></strong></p>                   
                     </div>
                 </div>
             </div>    
@@ -200,6 +202,13 @@
     document.getElementById("chartDoughnut"),
     configDoughnut
  );
+</script>
+<script>
+    function creditCardNumber(input) {
+        return input.startsWith('34') || input.startsWith('37')
+            ? '9999 999999 99999'
+            : '9999 9999 9999 9999'
+    }
 </script>
 </body>
 </html>

@@ -10,25 +10,27 @@
             <h2 class="text-black text-sm text-center font-semibold">{{ $pages[$currentPage]['subheading'] }}</h2>
         @endif
 
-        <div>
-            @if ($errors->isNotEmpty())
-                <div class="alert alert-error shadow-lg">
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        <span class="block sm:inline">Oops! Something's wrong</span>
-                    </div> 
-                </div>                   
-            @endif
-            @if ($success)
-                <div class="alert alert-success shadow-lg">
-                    <div>
-                        <span wire:click="resetSuccess">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        </span>                   
-                        <span>{{ $success }}</span>
+        <div x-data="{ alertForm: true }">
+            <div x-cloak x-show="alertForm" x-init="setTimeout(() => alertForm = false, 5000)" role="alert">    
+                @if ($errors->isNotEmpty())
+                    <div class="alert alert-error shadow-lg">
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            <span class="block sm:inline">Oops! Something's wrong</span>
+                        </div> 
+                    </div>                   
+                @endif
+                @if ($success)
+                    <div class="alert alert-success shadow-lg">
+                        <div>
+                            <span wire:click="resetSuccess">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            </span>                   
+                            <span>{{ $success }}</span>
+                        </div>
                     </div>
-                </div>
-            @endif
+                @endif
+            </div>
         </div>
         <div class="flex flex-row gap-2 justify-center">
             <svg class="w-12 h-12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
@@ -54,7 +56,7 @@
                         <span class="label-text">Amount / $ *</span>
                         <span class="label-text-alt"></span>
                         </label>
-                        <input wire:model.lazy="amount" type="text" name="amount" placeholder="$500" class="input input-bordered w-full max-w-xs">
+                        <input wire:model.lazy="amount" x-mask="9999999" type="text" name="amount" placeholder="500" class="input input-bordered w-full max-w-xs">
                         @error('amount') <span class="text-xs text-red-500 mt-1">{{ $message }}</span>@enderror
                     </div>
                     <div class="form-control w-full max-w-xs">
@@ -70,7 +72,7 @@
                         <span class="label-text">Card Number *</span>
                         <span class="label-text-alt"></span>
                         </label>
-                        <input wire:model.lazy="cardNumber" type="text" name="card_number" placeholder="0000 0000 0000 0000" class="input input-bordered w-full max-w-xs">
+                        <input wire:model.lazy="cardNumber" x-mask:dynamic="creditCardNumber" type="text" name="card_number" placeholder="0000 0000 0000 0000" class="input input-bordered w-full max-w-xs">
                         @error('cardNumber') <span class="text-xs text-red-500 mt-1">{{ $message }}</span>@enderror
                     </div>
                     <div class="flex flex-row gap-2 w-full">
@@ -79,7 +81,7 @@
                             <span class="label-text">Expiration Date *</span>
                             </label>
                             <select wire:model.lazy="expirationMonth" name="expiration_month" class="select select-bordered">
-                            <option disabled selected>Pick one</option>
+                            <option value="" selected>Select Month</option>
                             <option value="01">01 - January</option>
                             <option value="02">02 - February</option>
                             <option value="03">03 - March</option>
@@ -97,7 +99,7 @@
                         </div>
                         <div class="form-control w-1/2 max-w-xs mr-4 mt-9">
                             <select wire:model.lazy="expirationYear" name="expiration_year" class="select select-bordered">
-                            <option disabled selected>Pick one</option>
+                            <option value="" selected>Select Year</option>
                             <option value="2022">2022</option>
                             <option value="2023">2023</option>
                             <option value="2024">2024</option>
@@ -117,7 +119,7 @@
                         <span class="label-text">CVC *</span>
                         <span class="label-text-alt"></span>
                         </label>
-                        <input wire:model.lazy="cvc" type="text" name="cvc" placeholder="000" class="input input-bordered w-full max-w-xs">
+                        <input wire:model.lazy="cvc" x-mask="999" type="text" name="cvc" placeholder="000" class="input input-bordered w-full max-w-xs">
                         @error('cvc') <span class="text-xs text-red-500 mt-1">{{ $message }}</span>@enderror
                     </div>
                 @elseif ($currentPage === 2)
@@ -445,7 +447,7 @@
                         <span class="label-text">Zip / Postal Code *</span>
                         <span class="label-text-alt"></span>
                         </label>
-                        <input wire:model.lazy="zip" type="text" name="zip" placeholder="Postal Code" class="input input-bordered w-full max-w-xs">
+                        <input wire:model.lazy="zip" x-mask="999999" type="text" name="zip" placeholder="00000" class="input input-bordered w-full max-w-xs">
                         @error('zip') <span class="text-xs text-red-500 mt-1">{{ $message }}</span>@enderror
                     </div>
                 @endif               
@@ -463,7 +465,7 @@
                         <span class="uppercase text-lg">Make a Donation</span>
                     </button>
                 @else
-                <h2 class="text-xs my-4">I want to help the IRC’s mission even more by covering the processing fees and other costs associated with my donation.</h2>
+                <h2 class="text-xs my-4">I want to help the Utarana's mission even more by covering the processing fees and other costs associated with my donation.</h2>
                     <button wire:click="goToNextPage" type="button" class="btn btn-wide btn-warning inline-flex justify-center px-3 py-2 mt-2">
                         <span class="uppercase text-lg">Your information</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
